@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "spodoptera-milho/schema.json",
+  "title": "Spodoptera frugiperda control trials in maize, one record per measured value",
+  "description": "Fixed record format for every extractor. Output is a JSON array (or JSON Lines) of records that validate against this schema. Source PDFs and their record pages are listed in sources.json.",
+  "version": "1.0",
+  "rules": [
+    "One record per table cell that holds a measured value. A table with 5 treatments and 3 evaluation dates gives 15 records.",
+    "Copy every number exactly as printed. Put the printed text in value_as_printed and the number in value; the only allowed change is decimal comma to point (12,5 -> 12.5) and removing thousands separators (1.234,5 -> 1234.5).",
+    "Never compute, convert, round or infer a value. No averages across rows, no unit conversions, no Abbott correction, no values read off a chart by eye. If the paper does not print it, it does not go in.",
+    "Do not invent context. location, season_or_year, crop_stage, dose_and_unit, application_method, n_or_reps and statistic come from the document (table, caption, footnote or methods); when the document does not say, use null.",
+    "treatment and variable are copied as written in the document, in its language, including abbreviations. Standardized fields (treatment_type, variable_standardized) are the only place where the extractor classifies.",
+    "Text after the number in the same cell: significance letters go in significance_letter exactly as printed (e.g. 'a', 'ab', 'Ab1'); a dispersion term such as '± 0,5' or '(2,3)' goes in notes as printed.",
+    "Cells with '-', 'nd', 'ns' or blank are skipped, not recorded as 0. A printed 0 or 0,0 is a value and is recorded.",
+    "Figures: record values only when the figure prints the numbers (data labels on bars or points). If a figure has data that cannot be read exactly, write no records for it and list it in the extraction notes as skipped, with the page and figure number.",
+    "Untreated checks (testemunha) are recorded like any other treatment, with treatment_type 'control'.",
+    "page is the PDF page number counted from 1 (first page of the file = 1), not the number printed on the page.",
+    "table_or_figure is the label as printed ('Tabela 3', 'TABLE 2', 'Figura 1'). Text-only values are allowed when a number is stated in the body text; use 'text' and quote the sentence in notes.",
+    "When one column mixes several things (e.g. 'Dano/Produtividade'), split into separate records with the matching variable."
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "doc_id",
+    "page",
+    "table_or_figure",
+    "location",
+    "season_or_year",
+    "crop_stage",
+    "treatment",
+    "treatment_type",
+    "active_ingredient_or_agent",
+    "dose_and_unit",
+    "application_method",
+    "variable",
+    "variable_standardized",
+    "value",
+    "value_as_printed",
+    "unit",
+    "n_or_reps",
+    "statistic",
+    "significance_letter",
+    "notes"
+  ],
+  "properties": {
+    "doc_id": {
+      "description": "Document id from sources.json (also the PDF file name without .pdf).",
+      "type": "string",
+      "enum": [
+        "carneiro2008-beauveria",
+        "cruz2000-piretroides",
+        "cruz2002-npv-dose",
+        "cruz2010-quimicos-feromonio",
+        "fernandes2018-cry1a105-bol287",
+        "figueiredo2002-telenomus-densidade",
+        "figueiredo2005-match-ct131",
+        "figueiredo2006-clorpirifos",
+        "figueiredo2015-trichogramma-organico",
+        "fonseca2018-empurra-puxa-bol303",
+        "oliveira2023-braquiaria-ct260",
+        "rosa2012-screening-inseticidas-ct288",
+        "santos2017-silicio-bol160",
+        "silva2018-dessecacao-bt-ct358",
+        "souza2020-biocontrole-cry1f",
+        "valicente2004-bt-isolados",
+        "valicente2009-baculovirus-circ114",
+        "valicente2022-monitoramento-bt-6anos",
+        "viana2006-nim-circ88",
+        "viana2007-nim-metodos"
+      ]
+    },
+    "page": {
+      "description": "PDF page number, counted from 1.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "table_or_figure": {
+      "description": "Label as printed, e.g. 'Tabela 2', 'TABLE 1', 'Figura 3', or 'text'.",
+      "type": "string"
+    },
+    "location": {
+      "description": "Municipality/state as written, e.g. 'Sete Lagoas, MG'. 'laboratório' or 'casa de vegetação' plus the place when it is a lab or greenhouse trial.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "season_or_year": {
+      "description": "Season or year of the trial as written, e.g. '2015/2016', 'safrinha 2018', 'maio/2017'.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "crop_stage": {
+      "description": "Crop stage at application or evaluation as written, e.g. 'V4', '20 dias após emergência'. Null for lab trials without plants.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "treatment": {
+      "description": "Treatment name exactly as written in the table row or column header.",
+      "type": "string"
+    },
+    "treatment_type": {
+      "description": "chemical = synthetic insecticide; biological = live organism or microbial product (Bt spray, baculovirus, fungi, parasitoids, predators); Bt = transgenic Bt maize hybrid or event; cultural = cropping practice (sowing date, desiccation, intercrop, push-pull, silicon fertilization); control = untreated check or non-Bt isoline used as check; other = botanicals (neem, plant extracts), pheromone-only, combinations that do not fit one class.",
+      "type": "string",
+      "enum": [
+        "chemical",
+        "biological",
+        "Bt",
+        "cultural",
+        "control",
+        "other"
+      ]
+    },
+    "active_ingredient_or_agent": {
+      "description": "Active ingredient, organism or Bt protein as written in the document, e.g. 'clorpirifós', 'Telenomus remus', 'Cry1A.105 + Cry2Ab2'. Null if the document gives only a trade name.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dose_and_unit": {
+      "description": "Dose with unit as written, e.g. '0,2 L/ha', '15 parasitoides/m2', '5%'. Null when not applicable (Bt hybrid, control) or not stated.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "application_method": {
+      "description": "How it was applied, as written: 'pulverização', 'via irrigação', 'tratamento de sementes', 'liberação inundativa', 'dieta artificial', 'imersão de folhas'. Null if not stated.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "variable": {
+      "description": "Measured variable exactly as written in the table header or caption, including evaluation timing when it is part of the header, e.g. 'Mortalidade (%) 72 h', 'Nota de dano 14 DAA'.",
+      "type": "string"
+    },
+    "variable_standardized": {
+      "description": "efficacy_pct = control efficiency as printed by the authors (Abbott, Henderson-Tilton or similar); mortality_pct = observed or corrected mortality; damage_score = leaf damage rating scale (e.g. Davis 0-9, 0-5); larvae_per_plant = larvae counts per plant or per sample unit; yield_kg_ha = grain yield printed in kg/ha; other = anything else (parasitism %, % infested plants, pupal weight, development time, yield in other units, cost).",
+      "type": "string",
+      "enum": [
+        "efficacy_pct",
+        "mortality_pct",
+        "damage_score",
+        "larvae_per_plant",
+        "yield_kg_ha",
+        "other"
+      ]
+    },
+    "value": {
+      "description": "The number from the cell, decimal point. Only change allowed vs value_as_printed: decimal comma to point and removal of thousands separators.",
+      "type": "number"
+    },
+    "value_as_printed": {
+      "description": "The number exactly as printed in the cell, without significance letters or dispersion term, e.g. '87,5'.",
+      "type": "string"
+    },
+    "unit": {
+      "description": "Unit as printed or stated in the caption, e.g. '%', 'kg/ha', 'lagartas/planta', 'nota (0-5)', 'mg', 'dias'.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "n_or_reps": {
+      "description": "Replicates or sample size as stated, e.g. '4 repetições', 'n = 30 lagartas', '8 blocos'.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "statistic": {
+      "description": "What the number is. Use 'mean' unless the document says otherwise.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "mean",
+        "median",
+        "total",
+        "single_value",
+        "percentage_of_total",
+        "other",
+        null
+      ]
+    },
+    "significance_letter": {
+      "description": "Letter(s) after the value exactly as printed, e.g. 'a', 'bc', 'Ab1'. Null if none.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "description": "Anything the checker needs: dispersion term as printed ('± 0,5'), footnote markers, the quoted sentence for 'text' values, transformation used for statistics, doubts. Never a value that should be its own record.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

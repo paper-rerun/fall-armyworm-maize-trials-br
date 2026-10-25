@@ -1,0 +1,22 @@
+{
+  "title": "Fall armyworm control trials in Brazilian maize: 2,075 results from 20 Embrapa publications",
+  "upload_type": "dataset",
+  "description": "2,075 trial results on the control of fall armyworm (Spodoptera frugiperda) in maize, transcribed from the tables of 20 open-access Embrapa publications (2000-2023): chemical, biological, Bt, botanical and cultural treatments, with dose, place, season, measured variable and value, and the page and table of origin. Each document was transcribed twice, independently, by AI agents, and every disagreement was settled against the PDF; a human reviewed the result before publication. Part of the Paper Rerun project.",
+  "creators": [
+    {
+      "name": "Tessaro, Filipe"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "keywords": [
+    "Spodoptera frugiperda",
+    "fall armyworm",
+    "maize",
+    "Brazil",
+    "Embrapa",
+    "pest control",
+    "biological control",
+    "open data",
+    "AI agents"
+  ]
+}
