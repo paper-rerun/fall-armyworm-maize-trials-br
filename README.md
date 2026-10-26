@@ -1,5 +1,7 @@
 # Fall armyworm control trials in Brazilian maize
 
+Versão em português: [README.pt-BR.md](README.pt-BR.md)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23630093.svg)](https://doi.org/10.5281/zenodo.23630093)
 
 2,075 trial results on the control of fall armyworm (*Spodoptera frugiperda*, "lagarta-do-cartucho") in maize, taken from the tables of 20 open-access Embrapa publications (2000 to 2023). Each row is one number exactly as printed: a treatment, its dose, where and when it was tested, what was measured and the value, with the page and table it came from.
