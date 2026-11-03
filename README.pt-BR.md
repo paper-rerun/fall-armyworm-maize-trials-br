@@ -55,6 +55,7 @@ O arquivo está em UTF-8, com vírgula separando as colunas. Local, safra, está
 
 ## Qual a precisão
 
+- **Releitura cega (novembro de 2026):** um terceiro leitor, sem ver o dado publicado, leu de novo no PDF 100 registros sorteados deste dataset: nenhum tinha erro. Nos 13 datasets do Open Tables (1.297 registros) a taxa foi de 1,5 erro de valor e 10 de contexto por mil registros, e nenhum número foi lido errado ([detalhes, em inglês](https://github.com/paper-rerun/paper-rerun/blob/main/measurements/blind-reread-2026-11.md)).
 - **Números:** as duas transcrições independentes concordaram em todos os 1.953 valores e letras de significância que ambas leram. Não foi encontrado nenhum erro de valor ou de letra.
 - **Cobertura:** sozinha, a primeira transcrição deixou de fora 120 registros, inclusive uma tabela inteira impressa de lado na página, e deixou a dose vazia em 88 registros em que ela aparecia em outra página. Por registro, ela estava 90% completa e correta; a transcrição às cegas, sozinha, 97,9%. Todas essas lacunas estão fechadas neste dataset.
 - **Limites conhecidos:** valores mostrados só em gráficos, sem número impresso, não foram lidos. Coeficientes de variação e outras estatísticas da ANOVA ficaram de fora. `variable_standardized` ainda é `other` na maioria dos registros: o vocabulário vai ser ampliado na próxima versão (parasitismo, plantas infestadas, peso, tempo de desenvolvimento, sobrevivência).

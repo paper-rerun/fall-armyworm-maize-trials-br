@@ -38,6 +38,7 @@ This is the double-entry-plus-arbitration practice used in data curation. We sta
 
 ## How accurate it is
 
+- **Blind reread (November 2026):** a third reader, blind to the published data, read 100 random records of this dataset again from the PDF: none of them had an error. Across the 13 Open Tables datasets (1,297 records) the rate was 1.5 value errors and 10 context errors per 1,000 records, and no number was misread ([details](https://github.com/paper-rerun/paper-rerun/blob/main/measurements/blind-reread-2026-11.md)).
 - **Numbers:** the two independent transcriptions agreed on every one of the 1,953 values and significance letters they both read. No value or letter error was found.
 - **Coverage:** the first transcription alone missed 120 records, including a whole table printed sideways, and left the dose empty in 88 records where it was stated on another page. On its own it was 90% complete and correct per record; the blind transcription alone, 97.9%. Every one of those gaps is closed in this dataset.
 - **Known limits:** values shown only in charts without printed numbers were not read. Coefficients of variation and other ANOVA statistics were left out. `variable_standardized` is still `other` for most records: the vocabulary will be widened in the next version (parasitism, infested plants, weight, development time, survival).
